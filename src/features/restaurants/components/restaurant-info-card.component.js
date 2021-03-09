@@ -1,6 +1,10 @@
 import React from "react";
 import styled from "styled-components/native";
 import { Card } from "react-native-paper";
+import { SvgXml } from "react-native-svg";
+
+import star from "../../../../assets/star";
+import open from "../../../../assets/open";
 
 const RestaurantCard = styled(Card)`
   background-color: ${(props) => props.theme.colors.bg.primary};
@@ -13,6 +17,33 @@ const RestaurantCardCover = styled(Card.Cover)`
 
 const Info = styled.View`
   padding: ${(props) => props.theme.space[3]};
+`;
+
+const Section = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const SectionEnd = styled.View`
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+`;
+
+const Rating = styled.View`
+  flex-direction: row;
+  padding: ${(props) => props.theme.space[2]} 0;
+`;
+
+const ClosedTemporarily = styled.Text`
+  color: red;
+`;
+
+const ImageIcon = styled.Image`
+  width: 15px;
+  height: 15px;
+  margin-left: 8px;
 `;
 
 const Title = styled.Text`
@@ -30,20 +61,37 @@ const Address = styled.Text`
 export const RestaurantInfoCard = ({ restaurant = {} }) => {
   const {
     name = "Some Restaurant",
-    //icon,
+    icon = "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/lodging-71.png",
     photos = [
       "http://yesofcorsa.com/wp-content/uploads/2015/08/3747_cheeseburger.jpg",
     ],
     address = "100 Some Random Street",
-    //isOpenNow = true,
-    //rating = 4,
-    //isClosedTemporarily,
+    isOpenNow = true,
+    rating = 5,
+    isClosedTemporarily = true,
   } = restaurant;
+
+  const ratingArray = Array.from(new Array(Math.ceil(rating)));
+
   return (
     <RestaurantCard elevation={5}>
       <RestaurantCardCover key={name} source={{ uri: photos[0] }} />
       <Info>
         <Title>{name}</Title>
+        <Section>
+          <Rating>
+            {ratingArray.map(() => (
+              <SvgXml xml={star} width={20} height={20} />
+            ))}
+          </Rating>
+          {isClosedTemporarily && (
+            <ClosedTemporarily>CLOSED TEMPORARILY</ClosedTemporarily>
+          )}
+          <SectionEnd>
+            {isOpenNow && <SvgXml xml={open} width={20} height={20} />}
+            <ImageIcon source={{ uri: icon }} />
+          </SectionEnd>
+        </Section>
         <Address>{address}</Address>
       </Info>
     </RestaurantCard>
