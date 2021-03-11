@@ -12,7 +12,8 @@ import { Lato_400Regular } from "@expo-google-fonts/lato";
 import { RestaurantsScreen } from "./src/features/restaurants/screens/restaurants.screen";
 import { theme } from "./src/infrastructure/theme";
 import { SafeArea } from './src/utils/safe-area.component'
-import { RestaurantsContext, RestaurantsContextProvider } from './src/services/restaurants/restaurants.context'
+import { RestaurantsContextProvider } from './src/services/restaurants/restaurants.context'
+import { LocationContextProvider } from './src/services/location/location.context'
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -51,21 +52,23 @@ export default function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <RestaurantsContextProvider>
-          <NavigationContainer>
-            <Tab.Navigator
-              screenOptions={createScreenOptions}
-              tabBarOptions={{
-                activeTintColor: 'tomato',
-                inactiveTintColor: 'gray'
-              }}
-            >
-              <Tab.Screen name='Restaurants' component={RestaurantsScreen} />
-              <Tab.Screen name='Map' component={MapScreen} />
-              <Tab.Screen name='Settings' component={SettingsScreen} />
-            </Tab.Navigator>
-          </NavigationContainer>
-        </RestaurantsContextProvider>
+        <LocationContextProvider>
+          <RestaurantsContextProvider>
+            <NavigationContainer>
+              <Tab.Navigator
+                screenOptions={createScreenOptions}
+                tabBarOptions={{
+                  activeTintColor: 'tomato',
+                  inactiveTintColor: 'gray'
+                }}
+              >
+                <Tab.Screen name='Restaurants' component={RestaurantsScreen} />
+                <Tab.Screen name='Map' component={MapScreen} />
+                <Tab.Screen name='Settings' component={SettingsScreen} />
+              </Tab.Navigator>
+            </NavigationContainer>
+          </RestaurantsContextProvider>
+        </LocationContextProvider>
       </ThemeProvider>
       <ExpoStatusBar style="auto" />
     </>
