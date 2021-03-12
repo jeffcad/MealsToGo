@@ -1,4 +1,5 @@
 import React from 'react'
+import { Platform } from 'react-native'
 import {
   createStackNavigator,
   TransitionPresets
@@ -12,18 +13,22 @@ const RestaurantStack = createStackNavigator()
 export const RestaurantsNavigator = () => {
   return (
     <RestaurantStack.Navigator
-      headerMode='none'
-      screenOptions={{
-        ...TransitionPresets.ModalPresentationIOS
-      }}
+      headerMode={Platform.OS === 'ios' ? 'none' : 'float'}
+      screenOptions={
+        Platform.OS === 'ios' ?
+          { ...TransitionPresets.ModalPresentationIOS } :
+          { ...TransitionPresets.RevealFromBottomAndroid }
+      }
     >
       <RestaurantStack.Screen
         name='Restaurants'
         component={RestaurantsScreen}
+        options={{ headerShown: false }}
       />
       <RestaurantStack.Screen
         name='RestaurantDetail'
         component={RestaurantDetailScreen}
+        options={{ title: 'Restaurant Details' }}
       />
     </RestaurantStack.Navigator>
   )
