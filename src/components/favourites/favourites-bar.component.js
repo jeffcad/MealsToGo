@@ -13,12 +13,16 @@ padding: 10px;
 export const FavouritesBar = ({ favourites, onNavigate }) => {
 
   if (!favourites.length) {
-    return null
+    return (
+      <Spacer side='left' size='large'>
+        <Text variant='caption'>You Have No Favourites</Text>
+      </Spacer>
+    )
   }
 
   return (
     <FavouritesWrapper>
-      <Spacer variant='left.large'>
+      <Spacer side='left' size='large'>
         <Text variant='caption'>Favourites</Text>
       </Spacer>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
