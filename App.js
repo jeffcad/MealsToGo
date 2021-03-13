@@ -5,6 +5,8 @@ import { ThemeProvider } from "styled-components/native";
 import { useFonts, Oswald_400Regular } from "@expo-google-fonts/oswald";
 import { Lato_400Regular } from "@expo-google-fonts/lato";
 
+import * as firebase from 'firebase'
+
 import { theme } from "./src/infrastructure/theme";
 import { RestaurantsContextProvider } from './src/services/restaurants/restaurants.context'
 import { LocationContextProvider } from './src/services/location/location.context'
