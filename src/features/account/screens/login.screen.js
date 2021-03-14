@@ -5,13 +5,16 @@ import {
   AccountCover,
   AccountContainer,
   AuthButton,
-  AuthInput
+  AuthInput,
+  Title,
+  ErrorContainer
 } from '../components/account.styles'
 import { Text } from '../../../components/typography/text.component'
 import { Spacer } from '../../../components/spacer/spacer.component'
 import { AuthenticationContext } from '../../../services/authentication/authentication.context'
+import { NavigationContainer } from '@react-navigation/native'
 
-export const LoginScreen = () => {
+export const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const { onLogin, error } = useContext(AuthenticationContext)
@@ -19,6 +22,7 @@ export const LoginScreen = () => {
   return (
     <AccountBackground>
       <AccountCover />
+      <Title>Meals To Go</Title>
       <AccountContainer>
         <AuthInput
           label="E-mail"
@@ -39,11 +43,11 @@ export const LoginScreen = () => {
             onChangeText={(p) => setPassword(p)}
           />
         </Spacer>
-        {/* {error && ( */}
-        <Spacer size="large">
-          <Text variant="error">{error}</Text>
-        </Spacer>
-        {/* )} */}
+        {error && (
+          <ErrorContainer>
+            <Text variant="error">{error}</Text>
+          </ErrorContainer>
+        )}
         <Spacer size="large">
           <AuthButton
             icon="lock-open-outline"
@@ -54,6 +58,14 @@ export const LoginScreen = () => {
           </AuthButton>
         </Spacer>
       </AccountContainer>
+      <Spacer size="large">
+        <AuthButton
+          mode="contained"
+          onPress={() => navigation.goBack()}
+        >
+          Back
+          </AuthButton>
+      </Spacer>
     </AccountBackground>
   )
 }
