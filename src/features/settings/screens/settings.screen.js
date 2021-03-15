@@ -1,24 +1,38 @@
 import React, { useContext } from 'react'
-import { List } from 'react-native-paper'
+import { List, Avatar } from 'react-native-paper'
 import styled from 'styled-components/native'
 
+import { Text } from '../../../components/typography/text.component'
+import { Spacer } from '../../../components/spacer/spacer.component'
 import { SafeArea } from '../../../utils/safe-area.component'
 import { AuthenticationContext } from '../../../services/authentication/authentication.context'
 
+const SettingsItem = styled(List.Item)`
+  padding: ${props => props.theme.space[3]};
+`
+
+const AvatarContainer = styled.View`
+  align-items: center;
+`
+
 export const SettingsScreen = ({ navigation }) => {
-  const { onLogout } = useContext(AuthenticationContext)
+  const { onLogout, user } = useContext(AuthenticationContext)
   return (
     <SafeArea>
+      <AvatarContainer>
+        <Avatar.Icon size={180} icon='human' backgroundColor='#2182BD' />
+        <Spacer side='top' size='large'>
+          <Text variant='label'>{user.email}</Text>
+        </Spacer>
+      </AvatarContainer>
       <List.Section>
-        <List.Item
-          style={{ padding: 16 }}
+        <SettingsItem
           title='Favourites'
           description='View your favourites'
           onPress={() => navigation.navigate('Favourites')}
           left={props => <List.Icon {...props} color='black' icon='heart' />}
         />
-        <List.Item
-          style={{ padding: 16 }}
+        <SettingsItem
           title='Logout'
           onPress={onLogout}
           left={props => <List.Icon {...props} color='black' icon='door' />}

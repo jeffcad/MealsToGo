@@ -1,20 +1,15 @@
 import React, { useContext, useState } from "react";
-import { FlatList, TouchableOpacity } from "react-native";
+import { TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 import { ActivityIndicator, Colors } from 'react-native-paper'
 
-import { RestaurantInfoCard } from "../components/restaurant-info-card.component";
+import { RestaurantInfoCard } from "../components/restaurant-info-card.component"
+import { RestaurantList } from '../components/restaurant-list.styles'
 import { SafeArea } from '../../../utils/safe-area.component'
 import { Search } from '../components/search.component'
 import { RestaurantsContext } from '../../../services/restaurants/restaurants.context'
 import { FavouritesContext } from '../../../services/favourites/favourites.context'
 import { FavouritesBar } from '../../../components/favourites/favourites-bar.component'
-
-const RestaurantList = styled(FlatList).attrs({
-  contentContainerStyle: {
-    padding: 16
-  }
-})``
 
 const Loading = styled(ActivityIndicator)`
   margin-left: -25px;
